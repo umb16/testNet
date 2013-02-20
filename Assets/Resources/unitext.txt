@@ -1,0 +1,21 @@
+{"unitext": 
+	{
+	"ru":
+		{
+			"win":"ВЫ ВЫЙГРАЛИ"
+			"loose":"ВЫ ПРОИГРАЛИ"
+			"connecting":"ПОДКЛЮЧЕНИЕ"
+			"pass_err":"Не верный пароль"
+			"connecting_err":"Ошибка подключения"
+			"account_created":"Аккаунт создан"
+			"double_login":"Двойной логин"
+			"wain_opponent":"Ожидание оппонента"
+			"stomach": "ЖИВОТ"
+			"legs":"НОГИ"
+			"head":"ГОЛОВА"
+			"chest":"ГРУДЬ"
+			"you":"ВЫ"
+			"oppponent":"ОППОНЕНТ"
+		}
+	}
+}
