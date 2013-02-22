@@ -10,6 +10,7 @@ public class LoginOKWindow{
 		GUI.Label(new Rect(Screen.width/2-100,Screen.height/6,200,25),"Online list:");
 		for(int i=0; i < Client.onlineUsers.usersList.Count;i++)
 		{
+			if(Client.onlineUsers.usersList[i].login!=Client.login)
 			if(GUI.Button(new Rect(Screen.width/2-50,Screen.height/5+i*30,100,25),Client.onlineUsers.usersList[i].login))
 			{
 				
