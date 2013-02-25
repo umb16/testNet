@@ -3,17 +3,18 @@ using System.Collections;
 
 public class Client : MonoBehaviour
 {
-	float checkRate=5;
+	float checkRate=4;
 	float timer;
 	public static string login="";
 	public static string password="";
 	public static string IPAddress="127.0.0.1:25565";
 	public static Users onlineUsers = new Users();
 	string loginCode;
-	int status;
+	public static int status;
 	
 	IEnumerator SendRequest (string request)
 	{
+		timer=0;
 		print(request);
 		WWW www = new WWW (string.Format("http://{0}/",IPAddress) + request);
 		yield return www;
@@ -111,11 +112,26 @@ public class Client : MonoBehaviour
 		}
 		
 		if (status == Constants.loginOk) {
-			if(LoginOKWindow.Draw())
+			if(loginOkWindow())
 			{
 				status = Constants.logining;
 				StartCoroutine (SendRequest (PushString.SetTag ("logout") + PushString.SetValue ("loginCode", loginCode)));
 				loginCode = null;
+			}
+		}
+		
+		if (status == Constants.waitInviteResponse) {
+			InfoWindow.DrawNoButton ("Wait invite responce");
+		}
+		if (status == Constants.receivedInvite) {
+			switch (InfoWindow.Draw2Button ("Invite you to play")) {
+			case 1: status = Constants.logining;
+			break;
+			case 2: status = Constants.logining;
+			StartCoroutine (SendRequest (PushString.SetTag ("inviteAbort") + PushString.SetValue ("loginCode", loginCode)));	
+			break;
+			default:
+			break;
 			}
 		}
 	}
@@ -131,5 +147,23 @@ public class Client : MonoBehaviour
 				StartCoroutine (SendRequest (PushString.SetTag ("check") + PushString.SetValue ("loginCode", loginCode)));
 			}
 		}
+	}
+	bool loginOkWindow()
+	{
+		GUI.Label(new Rect(Screen.width/2-100,Screen.height/6,200,25),"Online list:");
+		for(int i=0; i < Client.onlineUsers.usersList.Count;i++)
+		{
+			if(Client.onlineUsers.usersList[i].login!=Client.login)
+			if(GUI.Button(new Rect(Screen.width/2-50,Screen.height/5+i*30,100,25),Client.onlineUsers.usersList[i].login))
+			{
+				StartCoroutine (SendRequest (PushString.SetTag ("invite")+ PushString.SetValue ("login", Client.onlineUsers.usersList[i].login) + PushString.SetValue ("loginCode", loginCode)));
+				status = Constants.logining;
+			}
+		}
+		//Client.IPAddress=GUI.TextField(new Rect(Screen.width/2-100,Screen.height/5*1.3f,200,25),Client.IPAddress,30);
+		
+		if(GUI.Button(new Rect(Screen.width/2-50,Screen.height/5*3,100,25),"Logout"))
+		return true;
+		return false;
 	}
 }

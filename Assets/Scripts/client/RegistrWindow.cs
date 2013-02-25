@@ -12,10 +12,15 @@ public class RegistrWindow{
 		Client.password=GUI.PasswordField(new Rect(Screen.width/2-100,Screen.height/5*2,200,25),Client.password,'*',10);
 		GUI.Label(new Rect(Screen.width/2-100,Screen.height/5*2.3f,200,25),"Repeat password:");
 		repeatPassword=GUI.PasswordField(new Rect(Screen.width/2-100,Screen.height/5*2.5f,200,25),repeatPassword,'*',10);
+		if(GUI.Button(new Rect(Screen.width/2,Screen.height/5*3,100,25),"Cancel"))
+		{
+			Client.status = Constants.zero;
+		}
 		if(Client.password.Length<1||Client.login.Length<1||Client.password!=repeatPassword)
 		GUI.enabled=false;
-		if(GUI.Button(new Rect(Screen.width/2-50,Screen.height/5*3,100,25),"Registr"))
+		if(GUI.Button(new Rect(Screen.width/2-100,Screen.height/5*3,100,25),"Registr"))
 		return true;
+		
 		return false;
 	}
 }

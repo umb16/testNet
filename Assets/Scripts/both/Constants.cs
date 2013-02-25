@@ -11,4 +11,6 @@ public class Constants
 	public const int registrMenu 			= 7;
 	public const int loginOccupied 			= 8;
 	public const int accountCreateSuccess	= 9;
+	public const int waitInviteResponse		=10;
+	public const int receivedInvite 		=11;
 }
